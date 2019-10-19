@@ -32,6 +32,7 @@ public class SignInActivity extends AppCompatActivity {
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
+                .requestProfile()
                 .build();
 
         mGoogleSignInClient= GoogleSignIn.getClient(SignInActivity.this,gso);
@@ -75,6 +76,7 @@ public class SignInActivity extends AppCompatActivity {
     private void startMainActivity() {
         Intent mainIntent=new Intent(SignInActivity.this,MainActivity.class);
         startActivity(mainIntent);
+        finish();
     }
 
 
