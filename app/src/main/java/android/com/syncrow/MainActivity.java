@@ -35,6 +35,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.api.Scope;
+import com.google.android.gms.drive.DriveFolder;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -51,6 +52,7 @@ import com.squareup.picasso.Picasso;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
+import java.util.List;
 
 //client ID=287121036961-h5n4cgehrjdebbtgh2v4h66ma1m2hlml.apps.googleusercontent.com
 //client secret=wxOK6HszUp4KBvrWKR4ZUl4k
@@ -69,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView mUseremail;
     private GoogleSignInClient mGoogleSignInClient;
     private DriveServiceHelper mDriveServiceHelper;
+    private Drive mDriveService;
     private CardView mSyncbtnView;
 
 
@@ -157,38 +160,14 @@ public class MainActivity extends AppCompatActivity {
                 credential.setSelectedAccount(acct.getAccount());
 
                 //Toast.makeText(MainActivity.this,credential.toString(),Toast.LENGTH_LONG).show();
-                com.google.api.services.drive.Drive googleDriveService = new com.google.api.services.drive.Drive.Builder(
+                mDriveService = new com.google.api.services.drive.Drive.Builder(
                         AndroidHttp.newCompatibleTransport(), new GsonFactory(), credential).setApplicationName("Syncrow").build();
 
-                mDriveServiceHelper = new DriveServiceHelper(googleDriveService);
-                // Task<String> folderId=mDriveServiceHelper.createFile();
+                mDriveServiceHelper = new DriveServiceHelper(mDriveService);
+
 
                 mSyncbtnView.setOnClickListener(v -> {
-
-                    // mDriveServiceHelper.uploadFile(f,getMimeType(mPath), String.valueOf(folderId));
-                    // Toast.makeText(MainActivity.this,"Uploading",Toast.LENGTH_SHORT).show();
-                    // Intent openActivity = new Intent(MainActivity.this, GDriveDebugViewActivity.class);
-                    //startActivity(openActivity);
-
-
-                    mDriveServiceHelper.queryFiles().addOnSuccessListener(new OnSuccessListener<FileList>() {
-                        @Override
-                        public void onSuccess(FileList fileList) {
-                            Toast.makeText(MainActivity.this, "Successful Query", Toast.LENGTH_SHORT).show();
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            try {
-                                Toast.makeText(MainActivity.this, credential.getToken(), Toast.LENGTH_SHORT).show();
-                            } catch (IOException e1) {
-                                e1.printStackTrace();
-                            } catch (GoogleAuthException e1) {
-                                e1.printStackTrace();
-                            }
-                            Log.d(TAG, credential.toString());
-                        }
-                    });
+                    mDriveServiceHelper.createFolder("Syncrow","foldID1");
 
                 });
 

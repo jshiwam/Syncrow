@@ -304,6 +304,7 @@ public class DriveServiceHelper{
                     .setMimeType(DriveFolder.MIME_TYPE)
                     .setName(folderName);
 
+
             File googleFile = mDriveService.files().create(metadata).execute();
             if (googleFile == null) {
                 throw new IOException("Null result when requesting file creation.");
