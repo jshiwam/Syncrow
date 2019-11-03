@@ -196,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
+//Chandskjhkjsfkjslfkhkljsh
     private String getMimeType(String url) {
         String type=null;
         String extension=MimeTypeMap.getFileExtensionFromUrl(url);
