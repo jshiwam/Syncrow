@@ -167,7 +167,8 @@ public class MainActivity extends AppCompatActivity {
 
 
                 mSyncbtnView.setOnClickListener(v -> {
-                    mDriveServiceHelper.createFolder("Syncrow","foldID1");
+                    Intent openActivity = new Intent(getApplicationContext(), GDriveDebugViewActivity.class);
+                    startActivity(openActivity);
 
                 });
 
